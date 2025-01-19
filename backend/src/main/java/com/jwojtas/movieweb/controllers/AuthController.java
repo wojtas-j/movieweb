@@ -1,8 +1,8 @@
 package com.jwojtas.movieweb.controllers;
 
-import com.jwojtas.movieweb.Entities.RevokedToken;
-import com.jwojtas.movieweb.Repositories.RevokedTokenRepository;
-import com.jwojtas.movieweb.Tokens.JwtTokenUtil;
+import com.jwojtas.movieweb.entities.RevokedToken;
+import com.jwojtas.movieweb.repositories.RevokedTokenRepository;
+import com.jwojtas.movieweb.tokens.JwtTokenUtil;
 import com.jwojtas.movieweb.dto.LoginRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

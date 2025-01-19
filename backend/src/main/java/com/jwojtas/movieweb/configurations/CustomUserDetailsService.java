@@ -1,7 +1,7 @@
-package com.jwojtas.movieweb.Configurations;
+package com.jwojtas.movieweb.configurations;
 
-import com.jwojtas.movieweb.Entities.User;
-import com.jwojtas.movieweb.Repositories.UserRepository;
+import com.jwojtas.movieweb.entities.User;
+import com.jwojtas.movieweb.repositories.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

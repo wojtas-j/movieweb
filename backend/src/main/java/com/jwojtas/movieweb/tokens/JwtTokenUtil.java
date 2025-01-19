@@ -1,4 +1,4 @@
-package com.jwojtas.movieweb.Tokens;
+package com.jwojtas.movieweb.tokens;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

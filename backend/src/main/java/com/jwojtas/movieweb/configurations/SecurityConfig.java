@@ -1,6 +1,6 @@
-package com.jwojtas.movieweb.Configurations;
+package com.jwojtas.movieweb.configurations;
 
-import com.jwojtas.movieweb.Tokens.JwtAuthenticationFilter;
+import com.jwojtas.movieweb.tokens.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,6 +1,6 @@
-package com.jwojtas.movieweb.Repositories;
+package com.jwojtas.movieweb.repositories;
 
-import com.jwojtas.movieweb.Entities.RevokedToken;
+import com.jwojtas.movieweb.entities.RevokedToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

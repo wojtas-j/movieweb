@@ -1,6 +1,6 @@
-package com.jwojtas.movieweb.Tokens;
+package com.jwojtas.movieweb.tokens;
 
-import com.jwojtas.movieweb.Repositories.RevokedTokenRepository;
+import com.jwojtas.movieweb.repositories.RevokedTokenRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.MalformedJwtException;

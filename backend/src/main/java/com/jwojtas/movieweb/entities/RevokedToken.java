@@ -1,9 +1,7 @@
-package com.jwojtas.movieweb.Entities;
+package com.jwojtas.movieweb.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
