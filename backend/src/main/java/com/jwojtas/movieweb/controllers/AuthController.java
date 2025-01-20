@@ -1,22 +1,23 @@
 package com.jwojtas.movieweb.controllers;
 
+import com.jwojtas.movieweb.dto.UserDto;
 import com.jwojtas.movieweb.entities.RevokedToken;
+import com.jwojtas.movieweb.entities.User;
 import com.jwojtas.movieweb.repositories.RevokedTokenRepository;
+import com.jwojtas.movieweb.services.Interfaces.UserServiceImpl;
 import com.jwojtas.movieweb.tokens.JwtTokenUtil;
 import com.jwojtas.movieweb.dto.LoginRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
@@ -26,11 +27,40 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final RevokedTokenRepository revokedTokenRepository;
+    private final UserServiceImpl userService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, RevokedTokenRepository revokedTokenRepository) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, RevokedTokenRepository revokedTokenRepository, UserServiceImpl userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.revokedTokenRepository = revokedTokenRepository;
+        this.userService = userService;
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> getCurrentUser(Authentication authentication) {
+        System.out.println("Sprawdzenie");
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String username = authentication.getName();
+        User user = userService.getUserByUsername(username);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        UserDto userDto = new UserDto(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.isAdmin()
+        );
+
+        return ResponseEntity.ok(userDto);
     }
 
     @PostMapping("/login")
