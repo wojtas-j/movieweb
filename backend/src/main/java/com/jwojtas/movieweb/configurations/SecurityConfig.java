@@ -3,6 +3,7 @@ package com.jwojtas.movieweb.configurations;
 import com.jwojtas.movieweb.tokens.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -32,6 +33,9 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/movies/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/movies/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/movies/**").hasRole("ADMIN")
                 .requestMatchers("/movies/**").authenticated()
                 .requestMatchers("/api/auth/**").permitAll()
                 .anyRequest().permitAll()
