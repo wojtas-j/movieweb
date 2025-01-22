@@ -1,39 +1,14 @@
 .movies-container {
     padding: 20px;
     max-width: 1200px;
+    margin: 20px auto;
     background-color: #1a1a1a;
     color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.movies-header {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    padding: 10px;
-    background-color: #2c2c2c;
     border-radius: 8px;
-}
-
-.logout-button {
-    padding: 8px 16px;
-    background-color: #dc3545;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.logout-button:hover {
-    background-color: #c82333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .movies-main {
-    padding: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -49,7 +24,113 @@
 .error-message {
     color: #ff6b6b;
     text-align: center;
+    margin-bottom: 15px;
+}
+
+.add-movie-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
     margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.add-movie-button:hover {
+    background-color: #218838;
+}
+
+.add-movie-form, .edit-movie-form {
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.add-movie-form h3, .edit-movie-form h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #f0f0f0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    color: #dddddd;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="date"] {
+    padding: 10px;
+    border: 1px solid #555555;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+}
+
+.form-group input::placeholder {
+    color: #888888;
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+}
+
+.checkbox-group label {
+    margin-right: 10px;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #1e90ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.submit-button:hover {
+    background-color: #1c86ee;
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
 }
 
 .movies-list {
@@ -61,11 +142,11 @@
 }
 
 .movie-item {
+    background-color: #2c2c2c;
     border: 1px solid #444444;
     border-radius: 8px;
     padding: 15px;
     margin: 10px;
-    background-color: #2c2c2c;
     width: 300px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s;
@@ -81,6 +162,7 @@
 .movie-item h3 {
     margin-top: 0;
     color: #1e90ff;
+    text-align: center;
 }
 
 .movie-item p {
@@ -97,24 +179,26 @@
 }
 
 .admin-buttons {
-    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-top: 10px;
 }
 
 .edit-button {
     padding: 6px 12px;
-    background-color: #28a745;
+    background-color: #ffc107;
     color: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    flex: 1;
+    margin-right: 5px;
 }
 
 .edit-button:hover {
-    background-color: #218838;
+    background-color: #e0a800;
 }
 
 .delete-button {
@@ -125,6 +209,8 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    flex: 1;
+    margin-left: 5px;
 }
 
 .delete-button:hover {
@@ -143,20 +229,31 @@
 }
 
 @media (max-width: 500px) {
-    .movie-item {
+    .movies-container {
         padding: 10px;
     }
 
-    .movie-item h3 {
-        font-size: 20px;
+    .movie-item {
+        width: 90%;
     }
 
-    .movie-item p {
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group input[type="date"] {
         font-size: 14px;
     }
 
-    .admin-buttons button {
-        padding: 5px 10px;
+    .submit-button, .cancel-button {
         font-size: 14px;
+    }
+
+    .add-movie-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .movies-main h2 {
+        font-size: 24px;
     }
 }
