@@ -18,7 +18,6 @@ const App: React.FC = () => {
     return (
         <Router>
             <div className="app-container">
-                <h1>Movie Web App</h1>
                 {isAuthenticated && <Header />}
                 <Routes>
                     <Route
