@@ -1,7 +1,12 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8080';
+const baseURL =
+    import.meta.env.MODE === 'production'
+        ? `${window.location.origin.replace(':3000', ':8080')}`
+        : 'http://localhost:8080';
+
 console.log('Base URL:', baseURL);
+
 const api = axios.create({
     baseURL: baseURL,
     withCredentials: true,
