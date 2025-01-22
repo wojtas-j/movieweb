@@ -3,6 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import api from '../services/api';
 import { MovieDto } from '../types/auth';
 import axios from 'axios';
+import './Movies.css';
 
 const Movies: React.FC = () => {
     const { isAuthenticated, isAdmin, logout } = useContext(AuthContext);
@@ -43,28 +44,26 @@ const Movies: React.FC = () => {
     }
 
     return (
-        <div>
-            <header style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px', backgroundColor: '#f0f0f0' }}>
-                <button onClick={handleLogout} style={{ padding: '8px 16px' }}>
-                    Wyloguj się
-                </button>
+        <div className="movies-container">
+            <header className="movies-header">
+                <button onClick={handleLogout} className="logout-button">Wyloguj się</button>
             </header>
-            <main style={{ padding: '20px' }}>
+            <main className="movies-main">
                 <h2>Lista Filmów</h2>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <ul>
+                {error && <p className="error-message">{error}</p>}
+                <ul className="movies-list">
                     {movies.map(movie => (
-                        <li key={movie.id}>
+                        <li key={movie.id} className="movie-item">
                             <h3>{movie.name}</h3>
                             <p>{movie.description}</p>
                             <p>Ocena: {movie.rating}</p>
                             <p>Reżyser: {movie.director}</p>
                             <p>Data premiery: {movie.releaseDate}</p>
-                            <img src={movie.imageUrl} alt={movie.name} style={{ width: '200px' }} />
+                            <img src={movie.imageUrl} alt={movie.name} className="movie-image" />
                             {isAdmin && (
-                                <div>
-                                    <button style={{ marginRight: '10px' }}>Edytuj</button>
-                                    <button>Usuń</button>
+                                <div className="admin-buttons">
+                                    <button className="edit-button">Edytuj</button>
+                                    <button className="delete-button">Usuń</button>
                                 </div>
                             )}
                         </li>

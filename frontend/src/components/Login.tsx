@@ -1,6 +1,7 @@
 import React, { useState, useContext, FormEvent } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import axios from 'axios';
+import './Login.css';
 
 const Login: React.FC = () => {
     const { login } = useContext(AuthContext);
@@ -26,10 +27,10 @@ const Login: React.FC = () => {
 
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
+        <div className="login-container">
             <h2>Logowanie</h2>
-            <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '10px' }}>
+            <form onSubmit={handleSubmit} className="login-form">
+                <div className="form-group">
                     <label htmlFor="username">Nazwa użytkownika:</label>
                     <input
                         type="text"
@@ -37,10 +38,11 @@ const Login: React.FC = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+                        className="form-input"
+                        placeholder="Wprowadź nazwę użytkownika"
                     />
                 </div>
-                <div style={{ marginBottom: '10px' }}>
+                <div className="form-group">
                     <label htmlFor="password">Hasło:</label>
                     <input
                         type="password"
@@ -48,11 +50,12 @@ const Login: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+                        className="form-input"
+                        placeholder="Wprowadź hasło"
                     />
                 </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit" style={{ padding: '10px 20px' }}>Zaloguj się</button>
+                {error && <p className="error-message">{error}</p>}
+                <button type="submit" className="submit-button">Zaloguj się</button>
             </form>
         </div>
     );
