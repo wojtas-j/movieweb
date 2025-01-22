@@ -6,7 +6,7 @@ import axios from 'axios';
 import './Movies.css';
 
 const Movies: React.FC = () => {
-    const { isAuthenticated, isAdmin, logout } = useContext(AuthContext);
+    const { isAuthenticated, isAdmin } = useContext(AuthContext);
     const [movies, setMovies] = useState<MovieDto[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -31,13 +31,6 @@ const Movies: React.FC = () => {
         }
     }, [isAuthenticated]);
 
-    const handleLogout = async () => {
-        try {
-            await logout();
-        } catch (error) {
-            console.error('Wylogowanie nie powiodło się:', error);
-        }
-    };
 
     if (!isAuthenticated) {
         return null;
@@ -45,9 +38,6 @@ const Movies: React.FC = () => {
 
     return (
         <div className="movies-container">
-            <header className="movies-header">
-                <button onClick={handleLogout} className="logout-button">Wyloguj się</button>
-            </header>
             <main className="movies-main">
                 <h2>Lista Filmów</h2>
                 {error && <p className="error-message">{error}</p>}

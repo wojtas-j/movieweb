@@ -7,15 +7,21 @@ body {
 
 .app-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background-color: #1a1a1a;
-  flex-direction: column;
 }
 
 .app-container h1 {
   margin-bottom: 20px;
   color: #f0f0f0;
   text-align: center;
+}
+
+@media (max-width: 500px) {
+  .app-container h1 {
+    font-size: 24px;
+  }
 }
