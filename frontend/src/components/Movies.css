@@ -1,0 +1,392 @@
+.movies-container {
+    padding: 20px;
+    width: 100vw;
+    margin: 0 auto;
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding-top: 100px;
+}
+
+.movies-main {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.movies-main h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+    font-size: 28px;
+    animation: fadeIn 1s ease forwards;
+}
+
+.error-message {
+    color: #ff6b6b;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    animation: fadeIn 1s ease forwards;
+}
+
+.add-movie-button {
+    padding: 12px 24px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    animation: fadeIn 1s ease forwards;
+}
+
+.add-movie-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.movie-form {
+    background-color: #2c2c2c;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+.movie-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+    font-size: 24px;
+    animation: fadeIn 1s ease forwards;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    color: #dddddd;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #555555;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #888888;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #1e90ff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+
+.submit-button,
+.cancel-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 48%;
+    animation: fadeIn 1s ease forwards;
+}
+
+.submit-button {
+    background-color: #1e90ff;
+    color: #ffffff;
+}
+
+.submit-button:hover {
+    background-color: #1c86ee;
+    transform: scale(1.05);
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.movies-list {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    width: 100%;
+}
+
+.movie-item {
+    background-color: #2c2c2c;
+    border: 1px solid #444444;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px;
+    width: 320px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+.movie-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.movie-item h3 {
+    margin-top: 0;
+    color: #1e90ff;
+    text-align: center;
+    font-size: 22px;
+    animation: fadeIn 1s ease forwards;
+}
+
+.movie-item p {
+    margin: 5px 0;
+    color: #dddddd;
+    text-align: center;
+    font-size: 16px;
+    animation: fadeIn 1s ease forwards;
+}
+
+.image-container {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.movie-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    animation: fadeIn 1s ease forwards;
+}
+
+.admin-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex: 1;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1s ease forwards;
+}
+
+.edit-button {
+    background-color: #ffc107;
+}
+
+.edit-button:hover {
+    background-color: #e0a800;
+    transform: scale(1.05);
+}
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.edit-button svg,
+.delete-button svg {
+    margin-right: 5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1200px) {
+    .movies-main {
+        max-width: 1000px;
+    }
+}
+
+@media (max-width: 800px) {
+    .movies-list {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+
+    .movie-item {
+        width: 90%;
+    }
+}
+
+@media (max-width: 600px) {
+    .movies-container {
+        padding: 10px;
+        margin: 70px auto 10px auto;
+    }
+
+    .movies-main h2 {
+        font-size: 24px;
+    }
+
+    .add-movie-button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .movie-form {
+        padding: 20px;
+    }
+
+    .movie-form h3 {
+        font-size: 20px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group input[type="date"],
+    .form-group textarea {
+        font-size: 14px;
+    }
+
+    .submit-button,
+    .cancel-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .movie-item h3 {
+        font-size: 20px;
+    }
+
+    .movie-item p {
+        font-size: 14px;
+    }
+
+    .admin-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .edit-button,
+    .delete-button {
+        margin: 5px 0;
+    }
+
+    .image-container {
+        height: 150px;
+    }
+}
+
+@media (max-width: 500px) {
+    .movie-item {
+        width: 100%;
+    }
+
+    .image-container {
+        height: 130px;
+    }
+
+    .movie-form {
+        padding: 15px;
+    }
+
+    .submit-button,
+    .cancel-button {
+        padding: 8px 16px;
+    }
+}

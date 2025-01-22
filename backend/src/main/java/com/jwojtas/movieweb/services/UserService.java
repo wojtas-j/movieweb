@@ -53,9 +53,12 @@ public class UserService implements UserServiceImpl{
     @Override
     public User updateUser(Long id, User updatedData) {
         User existing = userRepository.findById(id).orElse(null);
+
         if (existing == null) {
             throw new UserNotFoundException("Użytkownik o ID " + id + " nie istnieje");
         }
+
+        boolean wasAdmin = existing.isAdmin();
 
         if (!existing.getUsername().equals(updatedData.getUsername())) {
             if (userRepository.existsByUsername(updatedData.getUsername())) {
@@ -81,6 +84,12 @@ public class UserService implements UserServiceImpl{
             String newEncodedPassword = passwordEncoder.encode(updatedData.getPassword());
             existing.setPassword(newEncodedPassword);
         }
+
+        System.out.println("----UPDATING USER----");
+        System.out.println("Username: " + existing.getUsername());
+        System.out.println("Was admin: " + wasAdmin);
+        System.out.println("Is admin in request: " + updatedData.isAdmin());
+        System.out.println("Is admin at finish: "+existing.isAdmin());
 
         return userRepository.save(existing);
     }
