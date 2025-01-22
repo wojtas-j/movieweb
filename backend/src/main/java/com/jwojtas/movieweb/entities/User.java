@@ -3,7 +3,9 @@ package com.jwojtas.movieweb.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
@@ -45,5 +47,4 @@ public class User {
     @Column(nullable = false)
     @JsonProperty("isAdmin")
     private boolean isAdmin;
-
 }
