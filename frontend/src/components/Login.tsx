@@ -25,11 +25,18 @@ const Login: React.FC = () => {
         }
     };
 
-
     return (
         <div className="login-container">
-            <h2>Logowanie</h2>
             <form onSubmit={handleSubmit} className="login-form">
+                <div className="loginHeader">
+                    <img
+                        src="https://cdn.pixabay.com/photo/2019/04/24/21/55/cinema-4153289_640.jpg"
+                        alt="MovieWeb Logo"
+                        className="logo"
+                    />
+                    <h1 className="title">MovieWeb</h1>
+                </div>
+                <h2>Logowanie</h2>
                 <div className="form-group">
                     <label htmlFor="username">Nazwa użytkownika:</label>
                     <input

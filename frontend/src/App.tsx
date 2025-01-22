@@ -4,7 +4,6 @@ import Movies from './components/Movies';
 import Login from './components/Login';
 import Header from './components/Header';
 import Users from './components/Users';
-import './App.css';
 import {
     BrowserRouter as Router,
     Routes,
@@ -17,7 +16,7 @@ const App: React.FC = () => {
 
     return (
         <Router>
-            <div className="app-container">
+            <div>
                 {isAuthenticated && <Header />}
                 <Routes>
                     <Route
