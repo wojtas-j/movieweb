@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode, useMemo } from 'react';
+import React, { createContext, useState, ReactNode, useEffect, useMemo } from 'react';
 import api from '../services/api';
 import { LoginRequest, LoginResponse, UserDto } from '../types/auth';
 
@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [isAdmin, setIsAdmin] = useState(false);
     const [user, setUser] = useState<UserDto | null>(null);
 
-    /*const checkAuth = async () => {
+    const checkAuth = async () => {
         console.log('Sprawdzanie autoryzacji...');
         try {
             const response = await api.get<UserDto>('/api/auth/me');
@@ -40,24 +40,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     useEffect(() => {
+        console.log('Mounting AuthProvider');
         checkAuth();
-    }, []);*/
-
-    const checkAuth = async () => {
-        console.log('Sprawdzanie autoryzacji...');
-        try {
-            const response = await api.get<UserDto>('/api/auth/me');
-            console.log('Odpowiedź autoryzacji:', response.data);
-            setIsAuthenticated(true);
-            setIsAdmin(response.data.isAdmin);
-            setUser(response.data);
-        } catch (error) {
-            console.error('Sprawdzenie autoryzacji nie powiodło się:', error);
-            setIsAuthenticated(false);
-            setIsAdmin(false);
-            setUser(null);
-        }
-    };
+    }, []);
 
     const login = async (credentials: LoginRequest) => {
         try {

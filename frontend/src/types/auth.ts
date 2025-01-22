@@ -16,3 +16,13 @@ export interface UserDto {
     phoneNumber: string;
     isAdmin: boolean;
 }
+
+export interface MovieDto {
+    id: number;
+    name: string;
+    description: string;
+    rating: number;
+    releaseDate: string;
+    director: string;
+    imageUrl: string;
+}

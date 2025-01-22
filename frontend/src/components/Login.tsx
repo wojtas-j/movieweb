@@ -1,5 +1,6 @@
 import React, { useState, useContext, FormEvent } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import axios from 'axios';
 
 const Login: React.FC = () => {
     const { login } = useContext(AuthContext);
@@ -13,7 +14,9 @@ const Login: React.FC = () => {
         try {
             await login({ username, password });
         } catch (err: unknown) {
-            if (err instanceof Error) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data || 'Logowanie nie powiodło się');
+            } else if (err instanceof Error) {
                 setError(err.message);
             } else {
                 setError('Logowanie nie powiodło się');
