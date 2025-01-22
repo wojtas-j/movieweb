@@ -1,5 +1,6 @@
 package com.jwojtas.movieweb.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -42,6 +43,7 @@ public class User {
     private String phoneNumber;
 
     @Column(nullable = false)
+    @JsonProperty("isAdmin")
     private boolean isAdmin;
 
 }

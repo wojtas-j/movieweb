@@ -3,26 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import api from '../services/api';
 import axios from 'axios';
 import './Users.css';
-
-interface UserDto {
-    id: number;
-    firstName: string;
-    lastName: string;
-    username: string;
-    email: string;
-    phoneNumber: string;
-    isAdmin: boolean;
-}
-
-interface CreateUserRequest {
-    firstName: string;
-    lastName: string;
-    username: string;
-    email: string;
-    phoneNumber: string;
-    password: string;
-    isAdmin: boolean;
-}
+import { UserDto, CreateUserRequest } from '../types/auth';
 
 const Users: React.FC = () => {
     const { isAuthenticated, isAdmin } = useContext(AuthContext);
@@ -85,6 +66,7 @@ const Users: React.FC = () => {
                 password: '',
                 isAdmin: false,
             });
+            setError(null);
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data || 'Nie udało się dodać użytkownika');
@@ -115,6 +97,7 @@ const Users: React.FC = () => {
                 password: '',
                 isAdmin: false,
             });
+            setError(null);
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data || 'Nie udało się zaktualizować użytkownika');
@@ -132,6 +115,7 @@ const Users: React.FC = () => {
             await api.delete(`/admin/users/${id}`);
             const updatedUsers = users.filter(user => user.id !== id);
             setUsers(updatedUsers);
+            setError(null);
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data || 'Nie udało się usunąć użytkownika');
@@ -151,7 +135,7 @@ const Users: React.FC = () => {
             username: user.username,
             email: user.email,
             phoneNumber: user.phoneNumber,
-            password: '', // Nie zmieniamy hasła podczas edycji
+            password: '',
             isAdmin: user.isAdmin,
         });
     };
@@ -167,6 +151,7 @@ const Users: React.FC = () => {
             password: '',
             isAdmin: false,
         });
+        setError(null);
     };
 
     if (!isAuthenticated || !isAdmin) {
@@ -258,7 +243,10 @@ const Users: React.FC = () => {
                             onChange={(e) => setNewUser({ ...newUser, isAdmin: e.target.checked })}
                         />
                     </div>
-                    <button type="submit" className="submit-button">Dodaj Użytkownika</button>
+                    <div className="form-actions">
+                        <button type="submit" className="submit-button">Dodaj Użytkownika</button>
+                        <button type="button" className="cancel-button" onClick={() => setShowAddForm(false)}>Anuluj</button>
+                    </div>
                 </form>
             )}
             <ul className="users-list">
@@ -357,6 +345,7 @@ const Users: React.FC = () => {
             </ul>
         </div>
     );
+
 };
 
 export default Users;

@@ -1,5 +1,7 @@
 package com.jwojtas.movieweb.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public record UserDto(
         Long id,
         String firstName,
@@ -7,6 +9,6 @@ public record UserDto(
         String username,
         String email,
         String phoneNumber,
-        boolean isAdmin
-) {}
+        @JsonProperty("isAdmin") boolean isAdmin
+        ) {}
 

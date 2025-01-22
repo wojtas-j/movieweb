@@ -26,3 +26,23 @@ export interface MovieDto {
     director: string;
     imageUrl: string;
 }
+
+
+export interface CreateUserRequest {
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    isAdmin: boolean;
+}
+
+export interface UpdateUserRequest {
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    phoneNumber: string;
+    isAdmin: boolean;
+}

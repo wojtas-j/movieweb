@@ -24,7 +24,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [user, setUser] = useState<UserDto | null>(null);
 
     const checkAuth = async () => {
-        console.log('Sprawdzanie autoryzacji...');
         try {
             const response = await api.get<UserDto>('/api/auth/me');
             console.log('Odpowiedź autoryzacji:', response.data);
