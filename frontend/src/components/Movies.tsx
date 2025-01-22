@@ -4,6 +4,7 @@ import api from '../services/api';
 import { MovieDto } from '../types/auth';
 import axios from 'axios';
 import './Movies.css';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const Movies: React.FC = () => {
     const { isAuthenticated, isAdmin } = useContext(AuthContext);
@@ -159,7 +160,7 @@ const Movies: React.FC = () => {
                     </button>
                 )}
                 {isAdmin && showAddForm && (
-                    <form className="add-movie-form" onSubmit={handleAddMovie}>
+                    <form className="movie-form add-movie-form" onSubmit={handleAddMovie}>
                         <h3>Dodaj Nowy Film</h3>
                         <div className="form-group">
                             <label htmlFor="name">Nazwa:</label>
@@ -174,8 +175,7 @@ const Movies: React.FC = () => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="description">Opis:</label>
-                            <input
-                                type="text"
+                            <textarea
                                 id="description"
                                 value={newMovie.description}
                                 onChange={(e) => setNewMovie({ ...newMovie, description: e.target.value })}
@@ -229,14 +229,17 @@ const Movies: React.FC = () => {
                                 placeholder="Wprowadź URL obrazu filmu"
                             />
                         </div>
-                        <button type="submit" className="submit-button">Dodaj Film</button>
+                        <div className="form-actions">
+                            <button type="submit" className="submit-button">Dodaj Film</button>
+                            <button type="button" className="cancel-button" onClick={() => setShowAddForm(false)}>Anuluj</button>
+                        </div>
                     </form>
                 )}
                 <ul className="movies-list">
                     {movies.map(movie => (
                         <li key={movie.id} className="movie-item">
                             {isAdmin && editingMovie?.id === movie.id ? (
-                                <form className="edit-movie-form" onSubmit={handleEditMovie}>
+                                <form className="movie-form edit-movie-form" onSubmit={handleEditMovie}>
                                     <h3>Edycja Filmu</h3>
                                     <div className="form-group">
                                         <label htmlFor={`edit-name-${movie.id}`}>Nazwa:</label>
@@ -251,8 +254,7 @@ const Movies: React.FC = () => {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor={`edit-description-${movie.id}`}>Opis:</label>
-                                        <input
-                                            type="text"
+                                        <textarea
                                             id={`edit-description-${movie.id}`}
                                             value={editFormData.description}
                                             onChange={(e) => setEditFormData({ ...editFormData, description: e.target.value })}
@@ -318,11 +320,17 @@ const Movies: React.FC = () => {
                                     <p>Ocena: {movie.rating}</p>
                                     <p>Reżyser: {movie.director}</p>
                                     <p>Data premiery: {movie.releaseDate}</p>
-                                    <img src={movie.imageUrl} alt={movie.name} className="movie-image" />
+                                    <div className="image-container">
+                                        <img src={movie.imageUrl} alt={movie.name} className="movie-image" loading="lazy" />
+                                    </div>
                                     {isAdmin && (
                                         <div className="admin-buttons">
-                                            <button className="edit-button" onClick={() => startEditing(movie)}>Edytuj</button>
-                                            <button className="delete-button" onClick={() => handleDeleteMovie(movie.id)}>Usuń</button>
+                                            <button className="edit-button" onClick={() => startEditing(movie)} aria-label={`Edytuj film ${movie.name}`}>
+                                                <FaEdit /> Edytuj
+                                            </button>
+                                            <button className="delete-button" onClick={() => handleDeleteMovie(movie.id)} aria-label={`Usuń film ${movie.name}`}>
+                                                <FaTrash /> Usuń
+                                            </button>
                                         </div>
                                     )}
                                 </>

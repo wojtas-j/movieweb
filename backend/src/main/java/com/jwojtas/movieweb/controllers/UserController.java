@@ -4,6 +4,7 @@ import com.jwojtas.movieweb.entities.User;
 import com.jwojtas.movieweb.services.Interfaces.UserServiceImpl;
 import com.jwojtas.movieweb.dto.CreateUserRequest;
 import com.jwojtas.movieweb.dto.UserDto;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody CreateUserRequest request) {
         User user = new User();
         user.setFirstName(request.firstName());
         user.setLastName(request.lastName());
