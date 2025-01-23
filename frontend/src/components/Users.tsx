@@ -88,12 +88,11 @@ const Users: React.FC = () => {
                         });
                         setPopupMessage(validationErrors.map((match) => match[1]).join(', '));
                     } else {
-                        setPopupMessage('Nie udało się dodać użytkownika');
+                        setPopupMessage(message);
                     }
                 } else {
                     setPopupMessage('Nie udało się dodać użytkownika');
                 }
-
                 setShowPopup(true);
             } else if (err instanceof Error) {
                 setPopupMessage(err.message);
@@ -128,7 +127,6 @@ const Users: React.FC = () => {
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
                 const message = err.response?.data?.message;
-
                 if (message) {
                     setPopupMessage(validationRules);
                 } else {
