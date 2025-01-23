@@ -10,6 +10,8 @@ const Users: React.FC = () => {
     const [users, setUsers] = useState<UserDto[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [showAddForm, setShowAddForm] = useState<boolean>(false);
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [popupMessage, setPopupMessage] = useState<string | null>(null);
     const [newUser, setNewUser] = useState<CreateUserRequest>({
         firstName: '',
         lastName: '',
@@ -29,6 +31,15 @@ const Users: React.FC = () => {
         password: '',
         isAdmin: false,
     });
+
+    const validationRules = `
+        Zasady walidacji:
+        - Imie: maks 50 znaków.
+        - Nazisko: maks 50 znaków.
+        - Username: unikalny, maks 30 znaków.
+        - Email: unikalny, poprawny format.
+        - Numer telefonu: dokładnie 9 cyfr.
+    `;
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -69,11 +80,27 @@ const Users: React.FC = () => {
             setError(null);
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
-                setError(err.response?.data || 'Nie udało się dodać użytkownika');
+                const message = err.response?.data?.message;
+                if (message) {
+                    const validationErrors = [...message.matchAll(/messageTemplate='(.*?)'/g)];
+                    if (validationErrors.length > 0) {
+                        validationErrors.forEach(() => {
+                        });
+                        setPopupMessage(validationErrors.map((match) => match[1]).join(', '));
+                    } else {
+                        setPopupMessage('Nie udało się dodać użytkownika');
+                    }
+                } else {
+                    setPopupMessage('Nie udało się dodać użytkownika');
+                }
+
+                setShowPopup(true);
             } else if (err instanceof Error) {
-                setError(err.message);
+                setPopupMessage(err.message);
+                setShowPopup(true);
             } else {
-                setError('Nie udało się dodać użytkownika');
+                setPopupMessage('Nie udało się dodać użytkownika');
+                setShowPopup(true);
             }
         }
     };
@@ -100,11 +127,21 @@ const Users: React.FC = () => {
             setError(null);
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
-                setError(err.response?.data || 'Nie udało się zaktualizować użytkownika');
+                const message = err.response?.data?.message;
+
+                if (message) {
+                    setPopupMessage(validationRules);
+                } else {
+                    setPopupMessage('Nie udało się zaktualizować użytkownika.');
+                }
+
+                setShowPopup(true);
             } else if (err instanceof Error) {
-                setError(err.message);
+                setPopupMessage(err.message);
+                setShowPopup(true);
             } else {
-                setError('Nie udało się zaktualizować użytkownika');
+                setPopupMessage('Nie udało się zaktualizować użytkownika.');
+                setShowPopup(true);
             }
         }
     };
@@ -160,6 +197,14 @@ const Users: React.FC = () => {
 
     return (
         <div className="users-container">
+            {showPopup && (
+                <div className="popup-overlay">
+                    <div className="popup">
+                        <p>{popupMessage}</p>
+                        <button onClick={() => setShowPopup(false)}>Zamknij</button>
+                    </div>
+                </div>
+            )}
             <h2>Lista Użytkowników</h2>
             {error && <p className="error-message">{error}</p>}
             <button className="add-user-button" onClick={() => setShowAddForm(!showAddForm)}>
