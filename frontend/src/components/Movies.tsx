@@ -11,6 +11,8 @@ const Movies: React.FC = () => {
     const [movies, setMovies] = useState<MovieDto[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [showAddForm, setShowAddForm] = useState<boolean>(false);
+    const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [popupMessage, setPopupMessage] = useState<string | null>(null);
     const [newMovie, setNewMovie] = useState<Omit<MovieDto, 'id'>>({
         name: '',
         description: '',
@@ -28,6 +30,16 @@ const Movies: React.FC = () => {
         releaseDate: '',
         imageUrl: '',
     });
+
+    const validationRules = `
+        Zasady walidacji:
+        - Nazwa: maks 100 znaków
+        - Opis: maks 300 znaków.
+        - Ocena: [0, 10].
+        - Data premiery: poprawny format daty.
+        - Reżyser: maks 100 znaków.
+        - URL: poprawny format linku.
+    `;
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -66,11 +78,30 @@ const Movies: React.FC = () => {
             });
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
-                setError(err.response?.data || 'Nie udało się dodać filmu');
+                const message = err.response?.data?.message;
+
+                if (message) {
+                    const validationErrors = [
+                        ...message.matchAll(/messageTemplate='(.*?)'/g),
+                    ];
+
+                    if (validationErrors.length > 0) {
+                        const errorMessages = validationErrors.map(match => match[1]).join(', ');
+                        setPopupMessage(`Wystąpiły błędy walidacji:\n${errorMessages}`);
+                    } else {
+                        setPopupMessage(validationRules);
+                    }
+                } else {
+                    setPopupMessage('Nie udało się dodać filmu.');
+                }
+
+                setShowPopup(true);
             } else if (err instanceof Error) {
-                setError(err.message);
+                setPopupMessage(err.message);
+                setShowPopup(true);
             } else {
-                setError('Nie udało się dodać filmu');
+                setPopupMessage('Nie udało się dodać filmu.');
+                setShowPopup(true);
             }
         }
     };
@@ -95,11 +126,20 @@ const Movies: React.FC = () => {
             });
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
-                setError(err.response?.data || 'Nie udało się zaktualizować filmu');
+                const message = err.response?.data?.message;
+                if (message) {
+                    setPopupMessage(validationRules);
+                } else {
+                    setPopupMessage('Nie udało się zaktualizować filmu.');
+                }
+
+                setShowPopup(true);
             } else if (err instanceof Error) {
-                setError(err.message);
+                setPopupMessage(err.message);
+                setShowPopup(true);
             } else {
-                setError('Nie udało się zaktualizować filmu');
+                setPopupMessage('Nie udało się zaktualizować filmu.');
+                setShowPopup(true);
             }
         }
     };
@@ -152,6 +192,14 @@ const Movies: React.FC = () => {
     return (
         <div className="movies-container">
             <main className="movies-main">
+                {showPopup && (
+                    <div className="popup-overlay">
+                        <div className="popup">
+                            <p>{popupMessage}</p>
+                            <button onClick={() => setShowPopup(false)}>Zamknij</button>
+                        </div>
+                    </div>
+                )}
                 <h2>Lista Filmów</h2>
                 {error && <p className="error-message">{error}</p>}
                 {isAdmin && (
